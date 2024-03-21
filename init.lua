@@ -96,6 +96,14 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Keybinds to make navigation around wrapped lines easier.
+vim.keymap.set({ 'n', 'x' }, 'j', function()
+  return vim.v.count > 0 and 'j' or 'gj'
+end, { noremap = true, expr = true })
+vim.keymap.set({ 'n', 'x' }, 'k', function()
+  return vim.v.count > 0 and 'k' or 'gk'
+end, { noremap = true, expr = true })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
