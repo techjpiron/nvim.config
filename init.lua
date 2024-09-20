@@ -61,3 +61,4 @@ vim.opt.scrolloff = 10
 
 -- [[ Imports ]]
 require "keymaps"
+require "autocmd"
