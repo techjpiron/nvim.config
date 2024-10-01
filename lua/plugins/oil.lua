@@ -8,7 +8,6 @@ return {
       function()
         require("oil").open()
       end,
-      desc = "[F]ormat buffer",
     },
   },
   opts = {
