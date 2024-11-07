@@ -10,6 +10,6 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
--- Better navigation when line wrap
-vim.keymap.set("n", "j", "gj", { buffer = 0, desc = "Move up one display line" })
-vim.keymap.set("n", "k", "gk", { buffer = 0, desc = "Move down one display line" })
+-- Navigation
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
