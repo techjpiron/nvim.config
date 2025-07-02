@@ -8,5 +8,6 @@ return {
     vim.keymap.set("n", "L", "<cmd>BufferLineCycleNext<cr>", { desc = "Go to next buffer" })
     vim.keymap.set("n", "<leader>xx", "<cmd>bdelete<cr>", { desc = "Close current buffer" })
     vim.keymap.set("n", "<leader>xp", "<cmd>BufferLinePickClose<cr>", { desc = "Pick buffer to close" })
+    vim.keymap.set("n", "<leader>xo", "<cmd>BufferLineCloseOthers<cr>", { desc = "Close other buffers" })
   end,
 }
