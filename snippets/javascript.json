@@ -1,0 +1,6 @@
+{
+  "foo": {
+    "prefix": "im",
+    "body": "import {${2}} from \"${1}\";"
+  }
+}

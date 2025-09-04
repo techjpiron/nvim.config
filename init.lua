@@ -1,7 +1,7 @@
 -- [[ Setting options ]]
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 vim.o.number = true
 vim.o.mouse = "a"
 vim.o.showmode = false
@@ -15,14 +15,15 @@ vim.o.smartcase = true
 vim.o.signcolumn = "yes"
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
-vim.o.splitright = true
-vim.o.splitbelow = true
 vim.o.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.o.inccommand = "split"
 vim.o.cursorline = true
 vim.o.scrolloff = 10
 vim.o.confirm = true
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
 
 -- [[ Basic Keymaps ]]
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -343,28 +344,6 @@ require("lazy").setup({
     "saghen/blink.cmp",
     event = "VimEnter",
     version = "1.*",
-    dependencies = {
-      {
-        "L3MON4D3/LuaSnip",
-        version = "2.*",
-        build = (function()
-          if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
-            return
-          end
-          return "make install_jsregexp"
-        end)(),
-        dependencies = {
-          {
-            "rafamadriz/friendly-snippets",
-            config = function()
-              require("luasnip.loaders.from_vscode").lazy_load()
-            end,
-          },
-        },
-        opts = {},
-      },
-      "folke/lazydev.nvim",
-    },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
     opts = {
@@ -401,17 +380,12 @@ require("lazy").setup({
       },
 
       completion = {
-        documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        documentation = { auto_show = true },
       },
 
       sources = {
-        default = { "lsp", "path", "snippets", "lazydev", "buffer" },
-        providers = {
-          lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
-        },
+        default = { "lsp", "path", "snippets", "buffer" },
       },
-
-      snippets = { preset = "luasnip" },
 
       fuzzy = { implementation = "lua" },
 
@@ -420,17 +394,15 @@ require("lazy").setup({
   },
 
   {
-    "folke/tokyonight.nvim",
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require("tokyonight").setup({
-        styles = {
-          comments = { italic = false },
-        },
+      require("catppuccin").setup({
+        flavour = "mocha",
       })
-
-      vim.cmd.colorscheme("tokyonight-night")
+      vim.o.termguicolors = true
+      vim.cmd("colorscheme catppuccin")
     end,
   },
 
@@ -469,6 +441,34 @@ require("lazy").setup({
     end,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
+  },
+  {
+    "windwp/nvim-autopairs",
+    events = "InsertEnter",
+    opts = {},
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    opts = {},
+    lazy = false,
+  },
+  {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+      "TmuxNavigatorProcessList",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
   },
 }, {
   ui = {
